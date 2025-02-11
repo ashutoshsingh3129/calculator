@@ -64,5 +64,31 @@ describe('String Calculator - Multiple Numbers ', () => {
     test('should handle numbers with leading delimiters', () => {
         expect(add("\n1,2,3")).toBe(6); // Leading newline
     });
+    test('should handle custom delimiter ";"', () => {
+        expect(add("//;\n1;2")).toBe(3);
+    });
 
+    test('should handle custom delimiter "|"', () => {
+        expect(add("//|\n1|2|3")).toBe(6);
+    });
+
+    test('should handle custom delimiter "-"', () => {
+        expect(add("//-\n4-5-6")).toBe(15);
+    });
+
+    test('should return 0 if all inputs are invalid with custom delimiters', () => {
+        expect(add("//;\na;b;c")).toBe(0);
+    });
+
+    test('should handle trailing delimiters correctly with custom delimiter', () => {
+        expect(add("//;\n1;2;3;")).toBe(6);
+    });
+
+    test('should handle multiple occurrences of a custom delimiter', () => {
+        expect(add("//@\n2@3@4")).toBe(9);
+    });
+
+    test('should support multi-character custom delimiters', () => {
+        expect(add("//@@\n1@@2@@3")).toBe(6);
+    });
 });
