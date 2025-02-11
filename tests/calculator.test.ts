@@ -4,7 +4,7 @@ describe('String Calculator - Multiple Numbers ', () => {
     test('should return 0 for an empty string', () => {
         expect(add("")).toBe(0);
     });
-    
+
     test('should return the number itself when only one number is provided', () => {
         expect(add("5")).toBe(5);
     });
@@ -30,6 +30,9 @@ describe('String Calculator - Multiple Numbers ', () => {
     });
     test('should correctly sum numbers even with extra commas', () => {
         expect(add("1,2,,3")).toBe(6); // Empty values treated as 0
+    });
+    test('should handle negative numbers correctly', () => {
+        expect(add("1,-2,3,-4")).toBe(-2);
     });
     test('should handle numbers with spaces and ignore spaces', () => {
         expect(add("1, 2, 3, 4")).toBe(10);
