@@ -31,9 +31,7 @@ describe('String Calculator - Multiple Numbers ', () => {
     test('should correctly sum numbers even with extra commas', () => {
         expect(add("1,2,,3")).toBe(6); // Empty values treated as 0
     });
-    test('should handle negative numbers correctly', () => {
-        expect(add("1,-2,3,-4")).toBe(-2);
-    });
+  
     test('should handle numbers with spaces and ignore spaces', () => {
         expect(add("1, 2, 3, 4")).toBe(10);
     });
@@ -91,4 +89,22 @@ describe('String Calculator - Multiple Numbers ', () => {
     test('should support multi-character custom delimiters', () => {
         expect(add("//@@\n1@@2@@3")).toBe(6);
     });
+    test('should throw an error for a single negative number', () => {
+        expect(() => add("1,-2,3")).toThrow("negative numbers not allowed: -2");
+    });
+
+    test('should throw an error and list all negative numbers', () => {
+        expect(() => add("1,-2,-5,3,-7")).toThrow("negative numbers not allowed: -2, -5, -7");
+    });
+
+    test('should throw an error when negative numbers are used with custom delimiter', () => {
+        expect(() => add("//;\n1;-2;3;-4")).toThrow("negative numbers not allowed: -2, -4");
+    });
+
+    test('should not throw an error if there are no negative numbers', () => {
+        expect(add("1,2,3")).toBe(6);
+    });
+
+   
+
 });

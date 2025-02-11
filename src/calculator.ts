@@ -11,10 +11,17 @@ export function add(numbers: string): number {
         numbers = customDelimiterMatch[2]; // Extract actual number part
     }
 
-    return numbers
+    const numArray = numbers
         .split(delimiterRegex) // Split using combined delimiter
         .map(num => num.trim()) // Remove extra spaces
         .filter(num => num !== '') // Ignore empty values
-        .map(num => parseInt(num, 10) || 0) // Convert to number, handling invalid cases as 0
-        .reduce((sum, num) => sum + num, 0); // Sum up numbers
+        .map(num => parseInt(num, 10) || 0); // Convert to number, handling invalid cases as 0
+
+    // Find all negative numbers
+    const negativeNumbers = numArray.filter(num => num < 0);
+    if (negativeNumbers.length > 0) {
+        throw new Error(`negative numbers not allowed: ${negativeNumbers.join(", ")}`);
+    }
+
+    return numArray.reduce((sum, num) => sum + num, 0); // Sum up numbers
 }
